@@ -22,7 +22,7 @@ module ActiveAdmin
       end
 
       def build(scopes, options = {})
-        dropdown_menu "Scopes" do
+        dropdown_menu "Administration" do
 
           scopes.each do |scope|
             build_scope(scope, options) if call_method_or_proc_on(self, scope.display_if_block)
@@ -34,6 +34,7 @@ module ActiveAdmin
       protected
 
       def build_scope(scope, options)
+        scope_name = I18n.t("active_admin.scopes.#{scope.id}", :default => scope.name)
         item scope_name, url_for(params.merge(:scope => scope.id, :page => 1))
       end
 
