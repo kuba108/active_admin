@@ -30,15 +30,21 @@ module ActiveAdmin
       protected
 
       def build_scope(scope, options)
-        li :class => classes_for_scope(scope) do
-          scope_name = I18n.t("active_admin.scopes.#{scope.id}", :default => scope.name)
+        dropdown_menu 'Scopes',
+                      :id => "batch_actions_selector",
+                      :button => { :class => "disabled" } do
 
-          a :href => url_for(params.merge(:scope => scope.id, :page => 1)), :class => "table_tools_button" do
-            text_node scope_name
-            span :class => 'count' do
-              "(#{get_scope_count(scope)})"
-            end if options[:scope_count] && scope.show_count
+          li :class => classes_for_scope(scope) do
+            scope_name = I18n.t("active_admin.scopes.#{scope.id}", :default => scope.name)
+
+            a :href => url_for(params.merge(:scope => scope.id, :page => 1)), :class => "table_tools_button" do
+              text_node scope_name
+              span :class => 'count' do
+                "(#{get_scope_count(scope)})"
+              end if options[:scope_count] && scope.show_count
+            end
           end
+
         end
       end
 
