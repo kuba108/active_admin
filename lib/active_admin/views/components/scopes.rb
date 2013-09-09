@@ -22,8 +22,14 @@ module ActiveAdmin
       end
 
       def build(scopes, options = {})
-        scopes.each do |scope|
-          build_scope(scope, options) if call_method_or_proc_on(self, scope.display_if_block)
+        dropdown_menu I18n.t("active_admin.batch_actions.button_label"),
+                      :id => "batch_actions_selector",
+                      :button => { :class => "disabled" } do
+                        
+          scopes.each do |scope|
+            build_scope(scope, options) if call_method_or_proc_on(self, scope.display_if_block)
+          end
+
         end
       end
 
