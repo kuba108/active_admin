@@ -22,7 +22,17 @@ module ActiveAdmin
       end
 
       def build(scopes, options = {})
-        dropdown_menu params[:scope],
+        scopes.each do |scope|
+          current_scope = scope if current_scope?(scope)
+        end
+
+        if current_scope && current_scope.name
+          current_scope_name = current_scope.name
+        else
+          current_scope_name = 'Vyberte kategorii'
+        end
+
+        dropdown_menu current_scope_name,
                       :id => "batch_actions_selector" do
 
           scopes.each do |scope|
@@ -36,7 +46,8 @@ module ActiveAdmin
 
       def build_scope(scope, options)
         scope_name = I18n.t("active_admin.scopes.#{scope.id}", :default => scope.name)
-        item scope_name, url_for(params.merge(:scope => scope.id, :page => 1)), options
+        scope_name += "(#{get_scope_count(scope)})" if options[:scope_count] && scope.show_count
+        item scope_name , url_for(params.merge(:scope => scope.id, :page => 1)), options
       end
 
       def classes_for_scope(scope)
