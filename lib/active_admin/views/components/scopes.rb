@@ -22,8 +22,7 @@ module ActiveAdmin
       end
 
       def build(scopes, options = {})
-        current_scope_name = I18n.t("active_admin.batch_actions.button_label", :default => params[:scope])
-        dropdown_menu current_scope_name,
+        dropdown_menu params[:scope],
                       :id => "batch_actions_selector" do
 
           scopes.each do |scope|
