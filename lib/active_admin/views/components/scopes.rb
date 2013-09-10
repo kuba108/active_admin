@@ -22,24 +22,21 @@ module ActiveAdmin
       end
 
       def build(scopes, options = {})
+        dropdown_menu I18n.t("active_admin.batch_actions.button_label"),
+                      :id => "batch_actions_selector" do
+
           scopes.each do |scope|
             build_scope(scope, options) if call_method_or_proc_on(self, scope.display_if_block)
           end
+
+        end
       end
 
       protected
 
       def build_scope(scope, options)
-        li :class => classes_for_scope(scope) do
-          scope_name = I18n.t("active_admin.scopes.#{scope.id}", :default => scope.name)
-
-          a :href => url_for(params.merge(:scope => scope.id, :page => 1)), :class => "table_tools_button" do
-            text_node scope_name
-            span :class => 'count' do
-              "(#{get_scope_count(scope)})"
-            end if options[:scope_count] && scope.show_count
-          end
-        end
+        scope_name = I18n.t("active_admin.scopes.#{scope.id}", :default => scope.name)
+        item scope_name, url_for(params.merge(:scope => scope.id, :page => 1)), options
       end
 
       def classes_for_scope(scope)
