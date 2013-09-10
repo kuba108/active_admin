@@ -36,8 +36,8 @@ module ActiveAdmin
       protected
 
       def build_scope(scope, options)
-          scope_name = I18n.t("active_admin.scopes.#{scope.id}", :default => scope.name)
-          item scope_name, "#", options
+        scope_name = I18n.t("active_admin.scopes.#{scope.id}", :default => scope.name)
+        item scope_name url_for(params.merge(:scope => scope.id, :page => 1)) options
       end
 
       def classes_for_scope(scope)
