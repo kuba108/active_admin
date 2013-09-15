@@ -29,7 +29,7 @@ module ActiveAdmin
         if current_scope && current_scope.name
           current_scope_name = current_scope.name
         else
-          current_scope_name = 'Vyberte kategorii'
+          current_scope_name = I18n.t("active_admin.scopes.dropdown.name"
         end
 
         dropdown_menu current_scope_name,
