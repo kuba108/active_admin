@@ -71,7 +71,7 @@ module ActiveAdmin
           if active_admin_flash_messages.any?
             div :class => 'flashes' do
               active_admin_flash_messages.each do |type, message|
-                div raw message, :class => "flash flash_#{type}"
+                div message, :class => "flash flash_#{type}"
               end
             end
           end
