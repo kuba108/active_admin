@@ -1,7 +1,7 @@
 window.AA.CheckboxToggler = class AA.CheckboxToggler
   constructor: (@options, @container)->
     defaults = {}
-    @options = $.extend {}, defaults, options
+    @options = $.extend {}, defaults, @options
     @_init()
     @_bind()
 
